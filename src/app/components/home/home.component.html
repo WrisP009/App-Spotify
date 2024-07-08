@@ -1,9 +1,21 @@
-<p>home works!</p>
+<!-- <p>Bienvenido a Spotify</p>
 
-<div>
-    <ul>
-        <li *ngFor="let pais of paises">
-            {{pais.name}} - poblacion: {{pais.population | number}}
-        </li>
-    </ul>
-</div>
+<div class="card columns"> <div *ngFor="let cancion of nuevascanciones" class="card mb-3"> 
+    <img [src]="cancion.images | noimage" class="card-img-top" alt="...">
+    <div class="card-body"> <h5 class="card-title">{{cancion.name}}</h5> 
+        <p class="card-text"> This is a longer card text</p> 
+    </div> 
+</div> 
+</div> -->
+
+
+
+
+<div *ngIf="loading; else dataLoaded">
+    <app-loading></app-loading>
+  </div>
+  <ng-template #dataLoaded>
+  
+    
+<app-tarjetas [items]="nuevasCanciones"></app-tarjetas>
+</ng-template>

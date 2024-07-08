@@ -17,6 +17,7 @@ import { SpotifyService } from './services/services/spotify.service';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http'
 import {ROUTES} from './app.routes';
+import { TarjetasComponent } from './components/tarjetas/tarjetas/tarjetas.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {ROUTES} from './app.routes';
     NabvarComponent,
     //DomseguroPipePipe,
     DomseguroPipe,
-    NoimagePipe
+    NoimagePipe,
+    TarjetasComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { SpotifyService } from 'src/app/services/services/spotify.service';
 
 @Component({
   selector: 'app-home',
@@ -7,22 +8,20 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
   paises: any[] = [];
+  nuevasCanciones: any[] = [];
+  loading: boolean = true; // Propiedad loading añadida
 
-  constructor(private http: HttpClient) {
- 
-     console.log("--- Iniciando el constructor");
-     this.http.get('https://restcountries.com/v3.1/lang/spanish').subscribe((data: any) => {
-       this.paises = data.map((country: any)=> ({
-        name: country.name.common,
-        population: country.population
-       }));
-       console.log("paises ->",this.paises);
-    })
-   
-   }
+  constructor(private http: HttpClient, private spotifyService: SpotifyService) { 
 
-  ngOnInit(): void {
   }
 
+  ngOnInit(): void {
+    this.spotifyService.getNewRelease().subscribe((data: any) => {
+      this.nuevasCanciones = data;
+      this.loading = false; // Cuando se obtienen los datos, detener el loading
+      console.log('Nuevas Canciones:', this.nuevasCanciones);
+    });
+  }
 }
