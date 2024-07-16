@@ -8,10 +8,12 @@ import { Router } from '@angular/router';
 })
 export class TarjetasComponent{
   @Input() items: any[] = [];
+  @Input() item: any[] = [];
 
 
   constructor(private router:Router) { }
 
   verArtista(dato:any){}
-
+  
+  
 }
