@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SpotifyService } from 'src/app/services/services/spotify.service';
-import { map } from 'rxjs';
+
 
 @Component({
   selector: 'app-search',
@@ -9,24 +9,32 @@ import { map } from 'rxjs';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-artistas : any[] = [];
-loading: boolean = true;
-  constructor(private http: HttpClient, private spotifyService: SpotifyService) { }
+  artistas: any[] = [];
+  loadingCarga: boolean = false;
 
-  ngOnInit(): void {
-    this.spotifyService.getNewRelease().subscribe((data: any) => {
-      this.artistas = data;
-      this.loading = false; 
-      console.log('Nuevos artistas:', this.artistas);
-    });
+  constructor(private http: HttpClient,private spotifyService: SpotifyService) {}
+
+  ngOnInit(): void {}
+
+  buscar(termino: string): void {
+    if (termino.trim() !== '') {
+      this.loadingCarga = true; // Mostrar loading mientras se realiza la búsqueda
+      this.spotifyService.getArtistas(termino).subscribe(
+        (data: any) => {
+          this.artistas = data;
+          this.loadingCarga = false; // Ocultar loading cuando se obtienen los resultados
+        },
+        (error) => {
+          console.error('Error al buscar artistas:', error);
+          this.loadingCarga = false; // Manejar errores y ocultar loading
+        }
+      );
+    } else {
+      this.artistas = []; // Limpiar lista si el término de búsqueda está vacío
+    }
   }
-  buscar(termino: string){
-    this.spotifyService.getArtistas(termino).subscribe((data: any) => {
-      this.artistas = data;
-      this.loading = false; 
-      console.log('Nuevos artistas:', this.artistas);
-    });
+
+  getArtistImage(artista: any): string {
+    return artista.images.length > 0 ? artista.images[0].src : 'ruta_por_defecto.png';
   }
-
-
 }

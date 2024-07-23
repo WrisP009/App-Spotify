@@ -1,15 +1,9 @@
 <div>
-    <div class="col animated fadeIn">
-        <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control">
-   
-    </div>
+  <div class="col animated fadeIn">
+    <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control">
   </div>
-  <app-loading *ngIf="loading" class="md-5">
-   
-  </app-loading>
-   
-  <app-tarjetas *ngIf="!loading" [items]="artistas">
-   
-  </app-tarjetas>
+</div>
 
+<app-loading *ngIf="loadingCarga" class="md-5"></app-loading>
 
+<app-tarjetas *ngIf="!loadingCarga && artistas.length > 0" [items]="artistas"></app-tarjetas>

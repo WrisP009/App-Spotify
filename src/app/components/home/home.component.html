@@ -1,9 +1,8 @@
-
-
 <div *ngIf="loading; else dataLoaded">
-    <app-loading></app-loading>
+  <app-loading></app-loading>
 </div>
-
 <ng-template #dataLoaded>
-    <app-tarjetas [items]="nuevasCanciones"></app-tarjetas>
+
+  
+  <app-tarjetas [items]="nuevasCanciones"></app-tarjetas>
 </ng-template>

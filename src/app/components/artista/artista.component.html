@@ -1,1 +1,33 @@
-<p>Bienvenido a Spotify</p>
+<div *ngIf="cargarArtista; else artistaTemplate">
+  <app-loading></app-loading>
+</div>
+
+<ng-template #artistaTemplate>
+  <div class="container">
+    <!-- Información del Artista -->
+    <div class="text-center mb-3">
+      <img [src]="artista.images[0]?.url" class="img-fluid rounded-circle" alt="Imagen del artista" style="width: 150px;">
+      <h1 class="mt-3">{{ artista.name }}</h1>
+      <p><strong>Géneros:</strong>
+        <span *ngFor="let genre of artista.genres" class="badge bg-info">{{ genre }}</span>
+      </p>
+      <p><strong>Popularidad:</strong> {{ artista.popularity }}</p>
+      <p><strong>Seguidores:</strong> {{ artista.followers.total }}</p>
+    </div>
+
+    <!-- Top Tracks -->
+    <h4>Top Tracks</h4>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let track of topTracks">
+        <div class="d-flex w-100 justify-content-between">
+          <img [src]="track.album.images[0]?.url" class="img-thumbnail mr-3" alt="Imagen del álbum" style="width: 50px;">
+          <div>
+            <h5 class="mb-1">{{ track.name }}</h5>
+            <p class="mb-1"><small class="text-muted">Álbum: {{ track.album.name }}</small></p>
+          </div>
+          <audio controls [src]="track.preview_url" class="align-self-center"></audio>
+        </div>
+      </li>
+    </ul>
+  </div>
+</ng-template>
